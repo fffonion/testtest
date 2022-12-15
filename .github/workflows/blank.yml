@@ -22,13 +22,13 @@ jobs:
         run: |
           echo ${{ fromJSON(needs.job1.outputs.matrix) }}
           echo ">>>>>>"
-          echo ${{ fromJSON(needs.job1.outputs.matrix).build_packages }}
+          echo ${{ fromJSON(needs.job1.outputs.matrix).smoke_tests }}
 
   job3:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include: ${{ fromJSON(needs.job1.outputs.matrix).build_packages }}
+        include: ${{ fromJSON(needs.job1.outputs.matrix).smoke_tests }}
     steps:
       - run: echo 1
