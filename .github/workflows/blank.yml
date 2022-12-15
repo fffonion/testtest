@@ -8,8 +8,9 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          echo "matrix={\"b\":{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}}" >> $GITHUB_OUTPUT
-          echo "matrix2={\"b_p\":{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}}" >> $GITHUB_OUTPUT
+          matrix_file=".github/matrix-full.yml"
+          echo "matrix=$(yq -I=0 -o=json $matrix_file)" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
  
   job3:
     needs: job1
