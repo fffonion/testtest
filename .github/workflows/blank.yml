@@ -22,6 +22,6 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJSON(needs.job1.outputs.matrix2)["b-p"] }}
+      matrix: ${{ fromJSON(needs.job1.outputs.matrix2).b }}
     steps:
       - run: build
