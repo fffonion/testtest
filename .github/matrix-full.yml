@@ -132,7 +132,7 @@ release_packages:
   artifact-type: amazonlinux
   artifact: kong.aws2022.rpm
 
-release_images:
+release-images:
 # Ubuntu
 # TODO: 3.x alias
 - label: ubuntu
