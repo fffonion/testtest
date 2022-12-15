@@ -16,13 +16,6 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJSON(needs.job1.outputs.matrix).b }}
+      matrix: ${{ fromJSON(needs.job1.outputs.matrix).build_packages }}
     steps:
       - run: echo 1
-  job2:
-    needs: job1
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ fromJSON(needs.job1.outputs.matrix2).b_p }}
-    steps:
-      - run: echo 2
