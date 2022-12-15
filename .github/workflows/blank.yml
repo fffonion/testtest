@@ -9,7 +9,7 @@ jobs:
       - id: set-matrix
         run: |
           echo "matrix={\"b\":{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}}" >> $GITHUB_OUTPUT
-          echo "matrix2={\"b-p\":{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}}" >> $GITHUB_OUTPUT
+          echo "matrix2={\"b_p\":{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}}" >> $GITHUB_OUTPUT
  
   job3:
     needs: job1
@@ -17,11 +17,11 @@ jobs:
     strategy:
       matrix: ${{ fromJSON(needs.job1.outputs.matrix).b }}
     steps:
-      - run: build
+      - run: echo 1
   job2:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJSON(needs.job1.outputs.matrix2).b }}
+      matrix: ${{ fromJSON(needs.job1.outputs.matrix2).b_p }}
     steps:
-      - run: build
+      - run: echo 2
