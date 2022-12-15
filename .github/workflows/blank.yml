@@ -29,6 +29,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include: ${{ fromJSON(needs.job1.outputs.matrix).smoke_tests }}
+        include: ${{ fromJSON(needs.job1.outputs.matrix).release-packages }}
     steps:
       - run: echo 1
