@@ -1,4 +1,4 @@
-build_packages:
+build-packages:
 # As a general rule, binaries built on one Linux distro will only
 # work on other Linux distros that are the same age or newer.
 # Therefore, if we want to make binaries that run on most Linux distros,
@@ -35,33 +35,41 @@ build_packages:
   image: kong/kong-build-tools:rpm-1.8.1
   package: rpm
 
+build-images:
+# Only build images for the latest version of each major release.
 
-smoke_tests:
-- label: ubuntu
-  image: ${{ needs.metadata.outputs.prerelease-docker-repository }}:${{ needs.metadata.outputs.kong-version }}-ubuntu
-
-# Debian
-- label: debian
-  image: ${{ needs.metadata.outputs.prerelease-docker-repository }}:${{ needs.metadata.outputs.kong-version }}-debian
-
-# RHEL
-- label: rhel
-  image: ${{ needs.metadata.outputs.prerelease-docker-repository }}:${{ needs.metadata.outputs.kong-version }}-rhel
-
-scan_vulnerabilities:
 # Ubuntu
 - label: ubuntu
-  image: ${{ needs.metadata.outputs.prerelease-docker-repository }}:${{ needs.metadata.outputs.kong-version }}-ubuntu
+  base-image: ubuntu:22.04
+  package: deb
+  artifact-from: ubuntu-22.04
+  artifact: kong.deb
 
 # Debian
 - label: debian
-  image: ${{ needs.metadata.outputs.prerelease-docker-repository }}:${{ needs.metadata.outputs.kong-version }}-debian
+  base-image: debian:11-slim
+  package: deb
+  artifact-from: debian-11
+  artifact: kong.deb
 
 # RHEL
 - label: rhel
-  image: ${{ needs.metadata.outputs.prerelease-docker-repository }}:${{ needs.metadata.outputs.kong-version }}-rhel
+  base-image: registry.access.redhat.com/ubi8
+  package: rpm
+  artifact-from: rhel-7
+  artifact: kong.el8.rpm
 
-release_packages:
+smoke-tests:
+- label: ubuntu
+- label: debian
+- label: rhel
+
+scan-vulnerabilities:
+- label: ubuntu
+- label: debian
+- label: rhel
+
+release-packages:
 # Ubuntu
 - label: ubuntu-18.04
   package: deb
@@ -133,15 +141,6 @@ release_packages:
   artifact: kong.aws2022.rpm
 
 release-images:
-# Ubuntu
-# TODO: 3.x alias
 - label: ubuntu
-  image: ${{ needs.metadata.outputs.prerelease-docker-repository }}:${{ needs.metadata.outputs.kong-version }}-ubuntu
-
-# Debian
 - label: debian
-  image: ${{ needs.metadata.outputs.prerelease-docker-repository }}:${{ needs.metadata.outputs.kong-version }}-debian
-
-# RHEL
 - label: rhel
-  image: ${{ needs.metadata.outputs.prerelease-docker-repository }}:${{ needs.metadata.outputs.kong-version }}-rhel
