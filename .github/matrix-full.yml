@@ -1,4 +1,4 @@
-build-packages:
+build_packages:
 # As a general rule, binaries built on one Linux distro will only
 # work on other Linux distros that are the same age or newer.
 # Therefore, if we want to make binaries that run on most Linux distros,
