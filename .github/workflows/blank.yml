@@ -14,14 +14,15 @@ jobs:
           echo "matrix=$(yq -I=0 -o=json $matrix_file)" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
  
-   job2:
+  job2:
     needs: job1
     runs-on: ubuntu-latest
     steps:
-      - run: |
-        echo ${{ fromJSON(needs.job1.outputs.matrix) }}
-        echo ">>>>>>"
-       echo ${{ fromJSON(needs.job1.outputs.matrix).build_packages }}
+      - name: a 
+        run: |
+          echo ${{ fromJSON(needs.job1.outputs.matrix) }}
+          echo ">>>>>>"
+          echo ${{ fromJSON(needs.job1.outputs.matrix).build_packages }}
 
   job3:
     needs: job1
