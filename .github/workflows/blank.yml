@@ -29,6 +29,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include: ${{ fromJSON(needs.job1.outputs.matrix).release-images }}
+        include: "${{ fromJSON(needs.job1.outputs.matrix)['build-images'] }}"
     steps:
       - run: echo 1
