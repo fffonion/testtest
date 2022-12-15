@@ -11,7 +11,7 @@ jobs:
       - id: set-matrix
         run: |
           matrix_file=".github/matrix-full.yml"
-          echo "matrix=$(yq -I=0 -o=json $matrix_file)" >> $GITHUB_OUTPUT
+          echo "matrix=\"$(yq -I=0 -o=json $matrix_file)\"" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
  
   job3:
