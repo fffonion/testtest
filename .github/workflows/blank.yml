@@ -6,6 +6,8 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+      - name: Checkout Kong source code
+        uses: actions/checkout@v3
       - id: set-matrix
         run: |
           matrix_file=".github/matrix-full.yml"
