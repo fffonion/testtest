@@ -1,3 +1,3 @@
 FROM ubuntu:latest
 
-RUN apt-get update && apt-get install openssl rename -y --no-install-recommends
+RUN apt-get update && apt-get install openssl rename openssh-client -y --no-install-recommends
