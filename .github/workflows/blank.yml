@@ -42,7 +42,7 @@ jobs:
     - name: Scan AMD64 Image digest
       uses: Kong/public-shared-actions/security-actions/scan-docker-image@v1
       with:
-        asset_prefix: kong-${{ github.sha }}-${{ matrix.label }}-linux-amd64
+        asset_prefix: ${{ matrix.dockerfile }}
         image: test-cve:${{ matrix.dockerfile }}
 
     - name: Export Docker Image
