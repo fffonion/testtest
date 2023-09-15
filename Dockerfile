@@ -1,3 +1,3 @@
 FROM ubuntu:latest
 
-RUN apt-get update && apt-get install git openssl
+RUN apt-get update && apt-get install git openssl -y
