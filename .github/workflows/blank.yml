@@ -18,6 +18,10 @@ jobs:
     name: Build image
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        dockerfile: [Dockerfile, vanilla.Dockerfile]
+
     steps:
     - uses: actions/checkout@v3
 
@@ -30,21 +34,21 @@ jobs:
       # a way to override it, then we can cache it. But this usually takes 30s, so
       # we should be fine-ish.
       with:
-        file: Dockerfile
+        file: ${{ matrix.dockerfile }}
         context: .
         push: false
-        tags: "test-cve:latest"
+        tags: "test-cve:${{ matrix.dockerfile }}"
 
     - name: Scan AMD64 Image digest
       uses: Kong/public-shared-actions/security-actions/scan-docker-image@v1
       with:
         asset_prefix: kong-${{ github.sha }}-${{ matrix.label }}-linux-amd64
-        image: test-cve:latest
+        image: test-cve:${{ matrix.dockerfile }}
 
     - name: Export Docker Image
       run: |
         mkdir docker-image
-        docker image save -o docker-image/image.tar test-cve:latest
+        docker image save -o docker-image/image.tar test-cve:${{ matrix.dockerfile }}
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
