@@ -9,5 +9,5 @@ RUN sed -i "s/Package: libssl3/Package: whatever-libssl3\nProvides: libssl3 (=$(
 RUN rename "s/openssl-/whatever-openssl-/" /var/lib/dpkg/info/openssl*
 RUN rename "s/libssl3-/whatever-libssl3-/" /var/lib/dpkg/info/libssl3*
 
-# verify the mangled dpkg db doesn't break dependency
+# verify the hacked dpkg db doesn't break dependency
 RUN apt-get install openssh-client
